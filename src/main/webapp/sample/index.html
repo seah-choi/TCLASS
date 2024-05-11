@@ -1,0 +1,858 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko-KR">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>T클래스</title>
+<style type="text/css">
+		html, body { margin:0; padding:0; }
+		html { overflow-y:scroll; }
+		body { color:#666; background-color:#fff; font:13px/1.5 Noto Medium ,Dotum, '돋움', Verdana, sans-serif;  padding:8px 8px 40px 8px;box-sizing:border-box}
+		a { color:#27e; text-decoration:none; }
+		a:focus, a:hover, a:active { text-decoration:underline; }
+		.header { padding:.5em; }
+			.header h1 { display:inline; margin-right:1em; color:#000; font-size:2em; }
+			.header ul { display:inline; font-size:1.5em; list-style:none; }
+			.header ul li { display:inline; }
+		table { width:100%; border-collapse:collapse; border-spacing:0; }
+			table caption { display:none; }
+			table th { color:#333; background-color:#eee; }
+			table th, table td { padding:0 .5em; border:1px solid #ddd; text-align:left; }
+			table th, table td.stat,table td.center, table td.date { text-align:center; }
+		.section { margin:3em 0; }
+		body.js .section { margin:0; }
+			.section .title { margin:0; padding:0; color:#000; font-weight:bold; font-size:100%; }
+			body.js .section .title { padding:.5em; border:1px solid #ccc; background-color:#ddd; cursor:pointer; font-size:1.5em }
+			body.js .section + .section .title { border-top:0; }
+			body.js .section .content { display:none; }
+			/*body.js .section .content { display:block; */
+		#total { font-style:italic;}
+		.mt50{margin-top:50px!important}
+		td strong{color:red;font-weight:normal!important}
+		td strong s{color:#fe6666}
+		.red *{font-weight:bold;color:red;}
+		.point *{font-weight:bold;background:yellow}
+		td u{font-weight:bold;background:yellow;text-decoration:none}
+		.dn{background-color: #ccc !important;}
+		.tRed{color:orangered;}
+
+</style>
+<link rel="stylesheet" type="text/css" href="include/css/font.css" />
+<script type="text/javascript" src="../ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript">
+		var finishNum = 0;
+		jQuery.fn.stat = function (options) {
+			var settings = jQuery.extend({
+					title: 'h2.title',
+					content: 'div.content',
+					files: 'tbody tr',
+					stat: 'td.stat',
+					ing: 'td.ing',
+					completed: '●',
+					index: 3,
+					openAll: false,
+					speed: 'fast'
+				}, options),
+				all_sections = this;
+			return this.each(function () {
+				var self = this,
+					$self = $(self),
+					title_text = [],
+					completed = 0;
+				self.section_title = $(settings.title, $self);
+				self.content = $(settings.content, $self);
+				self.files = $(settings.files, $self);
+				self.files.each(function () {
+					var stat = $(settings.stat, this);
+					stat.each(function () {
+						var text = $(this).text();
+						if (text && (text === settings.completed)) {
+							completed++;
+							finishNum++;
+						}
+					});
+				});
+				title_text = [self.section_title.text(), '(', completed, 'index.html', self.files.length, ')'];
+				self.section_title.text(title_text.join(''));
+				self.section_title.bind('click', function () {
+					self.content.slideToggle(settings.speed);
+				});
+				if (settings.openAll || (settings.index === all_sections.index(this))) {
+					self.content.css('display', 'block');
+				}
+			});
+		};
+		$(document).ready(function () {
+			$('div.section').stat({ openAll: false });
+			$('tr').mouseover(function() {
+			$(this).css('backgroundColor','#f5f5f5');
+			});
+			$('tr').mouseout(function() {
+				$(this).css('backgroundColor','#fff');
+			});
+		});
+		function totalpage() {
+			var page = document.getElementsByTagName("a").length;
+			var per = finishNum*100/page;
+			//document.getElementById("total").innerHTML = "[ " + finishNum + "/" + page + "&nbsp; : "  + new String(per.toFixed(2)) + " %]";
+			document.getElementById("total").innerHTML = "[ " + finishNum + "/" + page + " ]";
+		}
+		window.onload = function () { totalpage(); }
+</script>
+</head>
+<body>
+<script type="text/javascript">document.body.className += ' js';</script>
+<div class="header">
+	<h1>T클래스 <span class="tRed">풀스택</span> 코딩 현황판<span id="total"></span>&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+</div>
+<style>
+	pre {
+		word-wrap: break-word;
+		white-space:pre-wrap
+	  }
+</style>
+<div class="section">
+	<h3 class="title">HEAD</h3>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="*" />
+		</colgroup>
+
+		<tbody>
+			<tr>
+				<td>
+<xmp>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<meta name="format-detection" content="telephone=no, address=no" />
+		<title>T 클래스</title>
+		<script src="include/js/jquery-3.4.1.min.js"></script>
+		<script src="include/js/ui.js"></script>
+		<script src="include/js/chart.js"></script>
+		<script src="include/js/swiper.js"></script>
+		<script src="include/js/aos.js"></script>
+		<link rel="stylesheet" type="text/css" href="include/css/common.css" />
+		<link href="include/css/aos.css" rel="stylesheet">
+	</head>
+
+</xmp>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="section mt50">
+	<h2 class="title">전체(햄버거)메뉴</h2>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="12%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="5%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">2depth</th>
+				<th scope="col">3depth</th>
+				<th scope="col">4depth</th>
+				<th scope="col">5depth</th>
+				<th scope="col">path</th>
+				<th scope="col">file</th>
+				<th scope="col">html</th>
+				<th scope="col">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>로그인 X</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+			   <td>/html/common/</td>
+				<td><a target="_blank" href="html/common/menu.html">menu.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>로그인 O</td>
+				<td>자녀미등록</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/common/</td>
+				  <td><a target="_blank" href="html/common/menu_login.html">menu_login.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>자녀 등록</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/common/</td>
+				<td><a target="_blank" href="html/common/menu_login_child.html">menu_login_child.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="section">
+	<h2 class="title">메인/스와이프 위치</h2>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="12%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="5%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">2depth</th>
+				<th scope="col">3depth</th>
+				<th scope="col">4depth</th>
+				<th scope="col">5depth</th>
+				<th scope="col">path</th>
+				<th scope="col">file</th>
+				<th scope="col">html</th>
+				<th scope="col">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>로그인 상관없이</td>
+				<td>티클래스 가이드팝업</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/main/</td>
+				<td><a target="_blank" href="html/main/index.html">index.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>로그인 X</td>
+				<td>티클래스 홍보 페이지</td>
+				<td></td>
+				<td>&nbsp;</td>
+
+				<td>/html/main/</td>
+				<td><a target="_blank" href="html/main/index_logout.html">index_logout.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td>로그인 O</td>
+				<td>초중 자녀등록 X</td>
+				<td>티클래스 홍보 페이지</td>
+				<td>&nbsp;</td>
+
+				<td>/html/main/</td>
+				<td><a target="_blank" href="html/main/index_login.html">index_login.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr class="">
+				<td>로그인 O</td>
+				<td>초등 자녀등록 O</td>
+				<td>T리포트</td>
+				<td></td>
+				<td>/html/main/</td>
+				<td><a target="_blank" href="html/main/index_report.html">index_report.html</a></td>
+				<td class="stat">●</td>
+				<td><strong></strong></td>
+			</tr>
+			<tr class="">
+				<td>로그인 O</td>
+				<td>중학 자녀등록 O</td>
+				<td>T리포트</td>
+				<td></td>
+				<td>/html/main/</td>
+				<td><a target="_blank" href="html/main/index_report_mid.html">index_report_mid.html</a></td>
+				<td class="stat">●</td>
+				<td><strong></strong></td>
+			</tr>
+			<tr class="dn">
+				<td><s>학부모/학생 컨텐츠메뉴</s></td>
+				<td><s>좌,우 스와이프하여 확인</s></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td><s>/html/main/</s></td>
+				<td><a target="_blank" href="html/main/index_sample.html"><s>index_sample.html</s></a></td>
+				<td class="stat">X</td>
+				<td></td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="section">
+	<h2 class="title">부모 컨텐츠(우측 슬라이드) </h2>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="12%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="5%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">2depth</th>
+				<th scope="col">3depth</th>
+				<th scope="col">4depth</th>
+				<th scope="col">5depth</th>
+				<th scope="col">path</th>
+				<th scope="col">file</th>
+				<th scope="col">html</th>
+				<th scope="col">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>교육정보</td>
+				<td>리스트</td>
+				<td>&nbsp;</td>
+				<td></td>
+			   <td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/eduinfo.html">eduinfo.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>상세</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/eduinfo_01.html">eduinfo_01.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>밀크T 정보</td>
+				<td>리스트</td>
+				<td>&nbsp;</td>
+				<td></td>
+				 <td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/milktinfo.html">milktinfo.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>상세</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				 <td><a target="_blank" href="html/parent/milktinfo_01.html">milktinfo_01.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>학교알림장</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page.html">notic_page.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>학급추가 검색</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page_01.html">notic_page_01.html</a></td>
+				<td class="stat">●</td>
+				<td>검색창 클릭시 레이어형태로 노출</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>학급추가 검색 중</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page_02.html">notic_page_02.html</a></td>
+				<td class="stat">●</td>
+				<td>내용 없을시 문구 넣어둠</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>학급추가 등록</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page_03.html">notic_page_03.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>학교알림장 리스트</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page_04.html">notic_page_04.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>학교알림장 상세_댓글 없이 사용</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page_05_no_comment.html">notic_page_05_no_comment.html</a></td>
+				<td class="stat">●</td>
+				<td>댓글영역 없는 버젼 추가 완료</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>학교알림장 상세및 댓글 보기</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page_05.html">notic_page_05.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			 <tr>
+				<td></td>
+				<td></td>
+				<td>댓글 입력</td>
+				<td></td>
+				<td>/html/parent/</td>
+				<td><a target="_blank" href="html/parent/notic_page_06.html">notic_page_06.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="section">
+	<h2 class="title">로그인 회원가입</h2>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="12%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="5%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">2depth</th>
+				<th scope="col">3depth</th>
+				<th scope="col">4depth</th>
+				<th scope="col">5depth</th>
+				<th scope="col">path</th>
+				<th scope="col">file</th>
+				<th scope="col">html</th>
+				<th scope="col">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>로그인</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/main/</td>
+				<td><a target="_blank" href="html/member/login.html">login.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr class="">
+				<td>회원가입</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/join.html">join.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>아이디찾기</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_id.html">search_id.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>아이디 정보 없음</td>
+				<td></td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_id_01.html">search_id_01.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>아이디 정보 있음</td>
+				<td></td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_id_02.html">search_id_02.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>전체확인 및 발송</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_id_03.html">search_id_03.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>아이디 찾기완료</td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_id_04.html">search_id_04.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			 <tr>
+				<td>비밀번호찾기</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_pw.html">search_pw.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>일치 정보 없음</td>
+				<td></td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_pw_01.html">search_pw_01.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>일치 정보 있음,인증번호 발송</td>
+				<td></td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_pw_02.html">search_pw_02.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+			   <td></td>
+				<td>일치 정보 있음,인증번호 발송</td>
+				<td>비밀번호 변경</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/search_pw_03.html">search_pw_03.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			 <tr>
+				<td>개인정보수정</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/edit_myinfo.html">edit_myinfo.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>수정하기</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/edit_myinfo_01.html">edit_myinfo_01.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>설정완료</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/member/</td>
+				<td><a target="_blank" href="html/member/edit_myinfo_02.html">edit_myinfo_02.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="section">
+	<h2 class="title">마이 페이지</h2>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="12%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="5%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">2depth</th>
+				<th scope="col">3depth</th>
+				<th scope="col">4depth</th>
+				<th scope="col">5depth</th>
+				<th scope="col">path</th>
+				<th scope="col">file</th>
+				<th scope="col">html</th>
+				<th scope="col">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr >
+				<td>쪽지</td>
+				<td>받은쪽지함 리스트</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/message.html">message.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr >
+				<td></td>
+				<td></td>
+				<td>쪽지 상세</td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/message_01.html">message_01.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>쪽지쓰기</td>
+				<td></td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/message_02.html">message_02.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr >
+				<td></td>
+				<td>보낸쪽지함 리스트</td>
+				<td></td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/message_03.html">message_03.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr >
+				<td></td>
+				<td></td>
+				<td>쪽지 상세</td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/message_04.html">message_04.html</a></td>
+				<td class="stat">●</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>1:1게시판</td>
+				<td>문의글 작성</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/oneboard.html">oneboard.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;수정하기 폼 동일 (버튼만 다름)</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>리스트(내가 작성한 글)</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/oneboard_01.html">oneboard_01.html</a></td>
+				<td class="stat">●</td>
+				<td>첨부파일 아이콘 생성</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>상세</td>
+				<td>답변대기</td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/oneboard_02.html">oneboard_02.html</a></td>
+				<td class="stat">●</td>
+				<td>툴버튼 삭제</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>상세</td>
+				<td>답변대기</td>
+				<td>수정하기</td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/oneboard_04.html">oneboard_04.html</a></td>
+				<td class="stat">●</td>
+				<td>작성하기 폼 동일 (버튼만 다름)</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>답변완료</td>
+				<td></td>
+				<td>/html/mypage/</td>
+				<td><a target="_blank" href="html/mypage/oneboard_03.html">oneboard_03.html</a></td>
+				<td class="stat">●</td>
+				<td>툴버튼 삭제</td>
+			</tr>
+
+
+
+
+		</tbody>
+		</table>
+	</div>
+</div>
+
+
+
+
+<div class="section">
+	<h2 class="title">레이어</h2>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="12%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="5%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">2depth</th>
+				<th scope="col">3depth</th>
+				<th scope="col">4depth</th>
+				<th scope="col">5depth</th>
+				<th scope="col">path</th>
+				<th scope="col">file</th>
+				<th scope="col">html</th>
+				<th scope="col">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr>
+				<td>공통 레이어</td>
+				<td>자녀선택</td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/common/</td>
+				<td><a target="_blank" href="html/common/lay_select.html">lay_select.html</a></td>
+			   <td class="stat">●</td>
+				<td></td>
+			</tr>
+
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="section">
+	<h2 class="title">화면오류 페이지</h2>
+	<div class="content" style="display:block">
+		<table>
+		<colgroup>
+			<col width="12%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="5%" />
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">2depth</th>
+				<th scope="col">3depth</th>
+				<th scope="col">4depth</th>
+				<th scope="col">5depth</th>
+				<th scope="col">path</th>
+				<th scope="col">file</th>
+				<th scope="col">html</th>
+				<th scope="col">비고</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr>
+				<td>화면오류 페이지</td>
+				<td></td>
+				<td>&nbsp;</td>
+				<td></td>
+				<td>/html/common/</td>
+				<td><a target="_blank" href="html/common/error.html">error.html</a></td>
+				<td class="stat">●</td>
+				<td>&nbsp;</td>
+			</tr>
+
+		</tbody>
+		</table>
+	</div>
+</div>
+
+
+
+</body>
